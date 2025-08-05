@@ -7,7 +7,7 @@ import MenuSection from '@/app/menu/MenuSection';
 import { menuItems } from '@/data/menuData'; // Import dữ liệu tĩnh
 
 type ProductType = {
-    _id: string;
+    id: string;
     name: string;
     price: number;
     image: string;
@@ -28,7 +28,7 @@ const MenuPage: React.FC = () => {
     useEffect(() => {
         if (USE_STATIC_DATA) {
             const mappedItems: ProductType[] = menuItems.map((item, index) => ({
-                _id: `static-${index}`, // hoặc dùng uuid nếu muốn
+                id: `static-${index}`, // hoặc dùng uuid nếu muốn
                 name: item.name,
                 price: item.price,
                 image: item.image,
