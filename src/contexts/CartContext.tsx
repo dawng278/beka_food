@@ -19,6 +19,7 @@ interface CartContextType {
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: string) => void;
     clearCart: () => void;
+    loading: boolean;
 }
 
 export const CartContext = createContext<CartContextType>({} as CartContextType);
@@ -26,6 +27,7 @@ export const CartContext = createContext<CartContextType>({} as CartContextType)
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const storedCart = localStorage.getItem('cart');
@@ -43,6 +45,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const addToCart = (item: CartItem) => {
+        setLoading(true);
         setCartItems((prev) => {
             const existing = prev.find((p) => p.id === item.id);
             if (existing) {
@@ -77,6 +80,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
                 addToCart,
                 removeFromCart,
                 clearCart,
+                loading,
             }}
         >
             {children}
