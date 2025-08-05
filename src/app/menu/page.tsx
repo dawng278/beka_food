@@ -6,19 +6,32 @@ import { useAuth } from '@/contexts/AuthContext';
 import MenuSection from '@/app/menu/MenuSection';
 import { menuItems } from '@/data/menuData'; // Import dữ liệu tĩnh
 
+type ProductType = {
+    _id: string;
+    name: string;
+    price: number;
+    image: string;
+};
+
 // ***** CẤU HÌNH QUAN TRỌNG: CHUYỂN ĐỔI GIỮA DỮ LIỆU TĨNH VÀ DỮ LIỆU ĐỘNG *****
 const USE_STATIC_DATA = true; // Đặt true để dùng dữ liệu tĩnh, false để dùng API
 
 const MenuPage: React.FC = () => {
     const { user } = useAuth(); // Lấy user từ context
 
-    const [products, setProducts] = useState<any[]>([]); // State để lưu trữ sản phẩm
+    const [products, setProducts] = useState<ProductType[]>([]); // State để lưu trữ sản phẩm
     const [showAddProductModal, setShowAddProductModal] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (USE_STATIC_DATA) {
-            setProducts(menuItems); // Nếu dùng dữ liệu tĩnh, gán trực tiếp
+            const mappedItems: ProductType[] = menuItems.map((item, index) => ({
+                _id: `static-${index}`, // hoặc dùng uuid nếu muốn
+                name: item.name,
+                price: item.price,
+                image: item.image,
+            }));
+            setProducts(mappedItems);
             console.log('Sử dụng dữ liệu sản phẩm tĩnh.');
         } else {
             // Logic lấy dữ liệu từ API (chưa triển khai API route ở đây)
@@ -40,7 +53,7 @@ const MenuPage: React.FC = () => {
         }
     }, []); // Dependency rỗng để chỉ chạy một lần khi component mount
 
-    const handleAddProductSuccess = (newProduct: any) => {
+    const handleAddProductSuccess = (newProduct: ProductType) => {
         setProducts(prevProducts => [...prevProducts, newProduct]);
         setShowAddProductModal(false);
     };

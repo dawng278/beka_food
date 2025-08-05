@@ -100,9 +100,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 setError(data.error || 'Đăng nhập thất bại.');
                 return false;
             }
-        } catch (err: any) {
-            console.error('Lỗi đăng nhập:', err);
-            setError(err.message || 'Lỗi mạng hoặc server không phản hồi.');
+        } catch (err: unknown) {
+            const error = err as Error;
+            console.error('Lỗi đăng nhập:', error);
+            setError(error.message || 'Lỗi mạng hoặc server không phản hồi.');
             return false;
         } finally {
             setLoading(false);
@@ -140,9 +141,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 setError(data.error || 'Đăng ký thất bại.');
                 return false;
             }
-        } catch (err: any) {
-            console.error('Lỗi đăng ký:', err);
-            setError(err.message || 'Lỗi mạng hoặc server không phản hồi.');
+        } catch (err: unknown) {
+            const error = err as Error;
+            console.error('Lỗi đăng ký:', error);
+            setError(error.message || 'Lỗi mạng hoặc server không phản hồi.');
             return false;
         } finally {
             setLoading(false);
