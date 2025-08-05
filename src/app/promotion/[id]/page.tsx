@@ -3,11 +3,13 @@ import { promotions } from '@/data/promotionData';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-interface Props {
-    params: { id: string };
-}
+type PromotionDetailPageProps = {
+    params: {
+        id: string;
+    };
+};
 
-const PromotionDetailPage = ({ params }: Props) => {
+export default function PromotionDetailPage({ params }: PromotionDetailPageProps) {
     const promotion = promotions.find((p) => p.id === params.id);
 
     if (!promotion) return notFound();
@@ -20,5 +22,3 @@ const PromotionDetailPage = ({ params }: Props) => {
         </div>
     );
 };
-
-export default PromotionDetailPage;

@@ -8,7 +8,7 @@ import { useCart } from '@/contexts/CartContext'; // Import useCart
 import MenuItemCard from './MenuItemCard'; // Import MenuItemCard
 
 interface Product {
-    id: string;
+    _id: string;
     name: string;
     description: string;
     price: number;

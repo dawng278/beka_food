@@ -11,6 +11,8 @@ type ProductType = {
     name: string;
     price: number;
     image: string;
+    description: string;
+    category: string;
 };
 
 // ***** CẤU HÌNH QUAN TRỌNG: CHUYỂN ĐỔI GIỮA DỮ LIỆU TĨNH VÀ DỮ LIỆU ĐỘNG *****
@@ -30,6 +32,8 @@ const MenuPage: React.FC = () => {
                 name: item.name,
                 price: item.price,
                 image: item.image,
+                description: item.description || '',  // fallback nếu thiếu
+                category: item.category || '',        // fallback nếu thiếu
             }));
             setProducts(mappedItems);
             console.log('Sử dụng dữ liệu sản phẩm tĩnh.');
