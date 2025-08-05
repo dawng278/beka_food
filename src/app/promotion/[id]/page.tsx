@@ -3,13 +3,7 @@ import { promotions } from '@/data/promotionData';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-type PromotionDetailPageProps = {
-    params: {
-        id: string;
-    };
-};
-
-export default function PromotionDetailPage({ params }: PromotionDetailPageProps) {
+export default function PromotionDetailPage({ params }: { params: { id: string } }) {
     const promotion = promotions.find((p) => p.id === params.id);
 
     if (!promotion) return notFound();
@@ -21,4 +15,4 @@ export default function PromotionDetailPage({ params }: PromotionDetailPageProps
             <p className="mt-4 text-lg text-gray-700">{promotion.description}</p>
         </div>
     );
-};
+}
