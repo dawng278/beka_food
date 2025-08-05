@@ -7,8 +7,8 @@ import { menuCategories } from '@/data/menuData'; // Import dữ liệu tĩnh t�
 import { useCart } from '@/contexts/CartContext'; // Import useCart
 import MenuItemCard from './MenuItemCard'; // Import MenuItemCard
 
-interface Product {
-    _id: string;
+export interface Product {
+    id: string;
     name: string;
     description: string;
     price: number;
