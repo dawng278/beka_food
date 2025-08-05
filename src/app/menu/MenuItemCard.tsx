@@ -1,16 +1,15 @@
-// src/components/Menu/MenuItemCard.tsx
-'use client'; // Component này sử dụng hooks và tương tác người dùng
+'use client';
 
 import React from 'react';
-import Image from 'next/image'; // Sử dụng Image của Next.js
-import { useCart } from '@/contexts/CartContext'; // Import useCart hook
+import Image from 'next/image';
+import { useCart } from '@/contexts/CartContext';
 
 interface MenuItem {
     id: string;
     name: string;
     description: string;
     price: number;
-    image: string; // Đường dẫn ảnh
+    image: string;
     category: string;
 }
 
@@ -27,8 +26,9 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
         minimumFractionDigits: 0,
     }).format(item.price);
 
+    // ✅ Sửa lỗi thiếu quantity bằng cách thêm vào object
     const handleAddToCartClick = () => {
-        addToCart(item); // Gọi hàm addToCart từ Context
+        addToCart({ ...item, quantity: 1 }); // Thêm quantity để phù hợp kiểu CartItem
     };
 
     return (
@@ -38,13 +38,13 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
             {/* Ảnh sản phẩm */}
             <div className="w-full h-48 md:h-48 lg:h-48 flex items-center justify-center mb-4">
                 <Image
-                    src={item.image} // Đường dẫn ảnh từ dữ liệu
+                    src={item.image}
                     alt={item.name}
-                    width={200} // Kích thước cố định cho Image component
-                    height={200} // Kích thước cố định cho Image component
+                    width={200}
+                    height={200}
                     className="max-w-full max-h-full object-contain"
-                    priority={false} // Không ưu tiên tải sớm
-                    loading="lazy" // Tải lười
+                    priority={false}
+                    loading="lazy"
                 />
             </div>
 
