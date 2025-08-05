@@ -3,7 +3,7 @@ import { promotions } from '@/data/promotionData';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-export default function PromotionDetailPage({ params }: { params: { id: string } }) {
+export default async function PromotionDetailPage({ params }: { params: { id: string } }) {
     const promotion = promotions.find((p) => p.id === params.id);
 
     if (!promotion) return notFound();
@@ -15,4 +15,10 @@ export default function PromotionDetailPage({ params }: { params: { id: string }
             <p className="mt-4 text-lg text-gray-700">{promotion.description}</p>
         </div>
     );
+}
+
+export async function generateStaticParams() {
+    return promotions.map((promotion) => ({
+        id: promotion.id,
+    }));
 }
