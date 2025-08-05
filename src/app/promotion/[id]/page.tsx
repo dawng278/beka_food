@@ -3,8 +3,9 @@ import { promotions } from '@/data/promotionData';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-export default async function PromotionDetailPage({ params }: { params: { id: string } }) {
-    const promotion = promotions.find((p) => p.id === params.id);
+export default async function PromotionDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const promotion = promotions.find((p) => p.id === id);
 
     if (!promotion) return notFound();
 
@@ -16,6 +17,7 @@ export default async function PromotionDetailPage({ params }: { params: { id: st
         </div>
     );
 }
+
 
 export async function generateStaticParams() {
     return promotions.map((promotion) => ({
