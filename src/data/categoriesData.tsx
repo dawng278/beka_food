@@ -1,5 +1,5 @@
 import React from 'react';
-import CategoryHoverCard from './CategoryHoverCard';
+import CategoryHoverCard from '../components/Products/CategoryHoverCard';
 
 // Import ảnh từ src/assets (dùng StaticImageData)
 import burger from '@/assets/images/thumbnails/burger.png';
