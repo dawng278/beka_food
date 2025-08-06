@@ -12,17 +12,12 @@ import AccountOverlay from './AccountOverlay';
 import CartOverlay from './CartOverlay';
 
 const Header = () => {
-    const { user } = useContext(AuthContext);
-    const {
-        cartItems,
-        isCartOpen,
-        toggleCart,
-        totalQuantity,
-    } = useContext(CartContext);
+    const auth = useContext(AuthContext);
+    const cart = useContext(CartContext);
+    const accountRef = useRef<HTMLDivElement>(null);
 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [showAccountOverlay, setShowAccountOverlay] = useState(false);
-    const accountRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -37,6 +32,12 @@ const Header = () => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+
+    // Nếu context chưa sẵn sàng thì return null để tránh lỗi
+    if (!auth || !cart) return null;
+
+    const { user } = auth;
+    const { totalQuantity, toggleCart } = cart;
 
     return (
         <header className="bg-amber-50 shadow-md sticky top-0 z-50">
@@ -95,7 +96,7 @@ const Header = () => {
                 </nav>
             )}
 
-            {/* CartOverlay Render */}
+            {/* Cart Overlay */}
             <CartOverlay />
         </header>
     );
